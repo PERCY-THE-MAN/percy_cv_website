@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        // Function to enable editing for contact information
+        function enableEdit(contactId) {
+            const phoneField = document.getElementById(`phone-${contactId}`);
+            const emailField = document.getElementById(`email-${contactId}`);
+            const addressField = document.getElementById(`address-${contactId}`);
+            const editButton = document.getElementById(`edit-button-${contactId}`);
+            const saveButton = document.getElementById(`save-button-${contactId}`);
+            const cancelButton = document.getElementById(`cancel-button-${contactId}`);
+
+            phoneField.disabled = false;
+            emailField.disabled = false;
+            addressField.disabled = false;
+            editButton.style.display = 'none';
+            saveButton.style.display = 'inline';
+            cancelButton.style.display = 'inline';
+        }
+
+        // Function to cancel editing contact information
+        function cancelEdit(contactId) {
+            const phoneField = document.getElementById(`phone-${contactId}`);
+            const emailField = document.getElementById(`email-${contactId}`);
+            const addressField = document.getElementById(`address-${contactId}`);
+            const editButton = document.getElementById(`edit-button-${contactId}`);
+            const saveButton = document.getElementById(`save-button-${contactId}`);
+            const cancelButton = document.getElementById(`cancel-button-${contactId}`);
+
+            phoneField.disabled = true;
+            emailField.disabled = true;
+            addressField.disabled = true;
+            editButton.style.display = 'inline';
+            saveButton.style.display = 'none';
+            cancelButton.style.display = 'none';
+
+            // Reset fields to their original values
+            phoneField.value = phoneField.getAttribute('data-original');
+            emailField.value = emailField.getAttribute('data-original');
+            addressField.value = addressField.getAttribute('data-original');
+        }
+
+        // Function to save changes to contact information
+        function saveContact(contactId) {
+            const phoneField = document.getElementById(`phone-${contactId}`);
+            const emailField = document.getElementById(`email-${contactId}`);
+            const addressField = document.getElementById(`address-${contactId}`);
+            const editButton = document.getElementById(`edit-button-${contactId}`);
+            const saveButton = document.getElementById(`save-button-${contactId}`);
+            const cancelButton = document.getElementById(`cancel-button-${contactId}`);
+
+            // Save the current values as the original values
+            phoneField.setAttribute('data-original', phoneField.value);
+            emailField.setAttribute('data-original', emailField.value);
+            addressField.setAttribute('data-original', addressField.value);
+
+            phoneField.disabled = true;
+            emailField.disabled = true;
+            addressField.disabled = true;
+            editButton.style.display = 'inline';
+            saveButton.style.display = 'none';
+            cancelButton.style.display = 'none';
+        }
+
+        // Function to delete contact information
+        function deleteContact(contactId) {
+            document.getElementById(`phone-${contactId}`).value = '';
+            document.getElementById(`email-${contactId}`).value = '';
+            document.getElementById(`address-${contactId}`).value = '';
+        }
+
+        // Function to add a new contact
+        function addContact() {
+            const contactList = document.getElementById('contact-list');
+            const contactId = contactList.children.length + 1;
+
+            const contactDiv = document.createElement('div');
+            contactDiv.className = 'contact-item';
+            contactDiv.innerHTML = `
+                <div>
+                    <label for="phone-${contactId}"><strong>Phone Number:</strong></label>
+                    <input type="text" id="phone-${contactId}" data-original="" disabled>
+                </div>
+                <div>
+                    <label for="email-${contactId}"><strong>Email:</strong></label>
+                    <input type="email" id="email-${contactId}" data-original="" disabled>
+                </div>
+                <div>
+                    <label for="address-${contactId}"><strong>Address:</strong></label>
+                    <input type="text" id="address-${contactId}" data-original="" disabled>
+                </div>
+                <button id="edit-button-${contactId}" onclick="enableEdit(${contactId})">Edit</button>
+                <button id="save-button-${contactId}" style="display:none;" onclick="saveContact(${contactId})">Save</button>
+                <button id="cancel-button-${contactId}" style="display:none;" onclick="cancelEdit(${contactId})">Cancel</button>
+                <button onclick="deleteContact(${contactId})">Delete</button>
+            `;
+
+            contactList.appendChild(contactDiv);
+        }
+    </script>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><span class="nav-icon">🏠</span> <a href="index.html">Home</a></li>
+            <li><span class="nav-icon">👤</span> <a href="personal_info.html">Personal Info</a></li>
+            <li><span class="nav-icon">🎓</span> <a href="education.html">Education</a></li>
+            <li><span class="nav-icon">💼</span> <a href="work_experience.html">Work Experience</a></li>
+            <li><span class="nav-icon">⚙️</span> <a href="skills.html">Skills</a></li>
+            <li><span class="nav-icon">📁</span> <a href="projects.html">Projects</a></li>
+            <li><span class="nav-icon">✉️</span> <a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="navy-header">
+            <h1 class="header-title">Contact</h1>
+        </div>
+
+        <div class="content-box" id="contact-list">
+            <div class="contact-item">
+                <div>
+                    <label for="phone-1"><strong>Phone Number:</strong></label>
+                    <input type="text" id="phone-1" value="079 346 3974" data-original="079 346 3974" disabled>
+                </div>
+                <div>
+                    <label for="email-1"><strong>Email:</strong></label>
+                    <input type="email" id="email-1" value="dollarpop03@gmail.com" data-original="dollarpop03@gmail.com" disabled>
+                </div>
+                <div>
+                    <label for="address-1"><strong>Address:</strong></label>
+                    <input type="text" id="address-1" value="Limpopo 0950, Thohoyandou M, Unknown Street" data-original="Limpopo 0950, Thohoyandou M, Unknown Street" disabled>
+                </div>
+                <button id="edit-button-1" onclick="enableEdit(1)">Edit</button>
+                <button id="save-button-1" style="display:none;" onclick="saveContact(1)">Save</button>
+                <button id="cancel-button-1" style="display:none;" onclick="cancelEdit(1)">Cancel</button>
+                <button onclick="deleteContact(1)">Delete</button>
+            </div>
+        </div>
+        <button onclick="addContact()">Add Contact</button>
+    </div>
+</body>
+</html>
